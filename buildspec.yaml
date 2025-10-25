@@ -7,24 +7,30 @@ phases:
     commands:
       - pip install Jinja2 PyYAML
 
-build:
-  commands:
-    - echo "Rendering CloudFormation templates..."
-    - python render.py
-    - echo "Deploying stacks..."
-    - |
-      shopt -s nullglob
-      files=(output/*.yaml)
-      if [ ${#files[@]} -eq 0 ]; then
-        echo "No YAML files found in output/"
-        exit 1
-    - echo "Contents of output/:"
-    - ls -l output/
-      fi
-      for file in "${files[@]}"; do
-        stack_name=$(basename "$file" .yaml | sed 's/lambda-eb-//')
-        aws cloudformation deploy \
-          --template-file "$file" \
-          --stack-name "lambda-eb-${stack_name}" \
-          --capabilities CAPABILITY_NAMED_IAM
-      done
+  build:
+    commands:
+      - echo "Rendering CloudFormation templates..."
+      - python render.py
+      - echo "Deploying stacks..."
+      - |
+        shopt -s nullglob
+        files=(output/*.yaml)
+        if [ ${#files[@]} -eq 0 ]; then
+          echo "No YAML files found in output/"
+          exit 1
+        fi
+
+        echo "Contents of output/:"
+        ls -l output/
+
+        for file in "${files[@]}"; do
+          stack_name=$(basename "$file" .yaml | sed 's/lambda-eb-//')
+          aws cloudformation deploy \
+            --template-file "$file" \
+            --stack-name "lambda-eb-${stack_name}" \
+            --capabilities CAPABILITY_NAMED_IAM
+        done
+
+artifacts:
+  files:
+    - output/*.yaml
