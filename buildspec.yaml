@@ -20,7 +20,3 @@ phases:
             --stack-name "lambda-eb-${stack_name}" \
             --capabilities CAPABILITY_NAMED_IAM
         done
-
-artifacts:
-  files:
-    - output/*.yaml
