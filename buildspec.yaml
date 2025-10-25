@@ -16,7 +16,7 @@ phases:
         shopt -s nullglob
         files=(output/*.yaml)
         if [ ${#files[@]} -eq 0 ]; then
-          echo "No YAML files found in output/"
+          echo " No YAML files found in output/"
           exit 1
         fi
 
@@ -24,7 +24,11 @@ phases:
         ls -l output/
 
         for file in "${files[@]}"; do
-          stack_name=$(basename "$file" .yaml | sed 's/lambda-eb-//')
+          stack_name=$(basename "$file" .yaml | sed 's/lambda-eb-//' | tr '_' '-')
+          if [[ ! "$stack_name" =~ ^[a-zA-Z][-a-zA-Z0-9]*$ ]]; then
+            echo "Invalid stack name: lambda-eb-${stack_name}"
+            exit 1
+          fi
           aws cloudformation deploy \
             --template-file "$file" \
             --stack-name "lambda-eb-${stack_name}" \
