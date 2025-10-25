@@ -9,9 +9,9 @@ phases:
 
 build:
   commands:
-    - echo "🔧 Rendering CloudFormation templates..."
+    - echo "Rendering CloudFormation templates..."
     - python render.py
-    - echo "🚀 Deploying stacks..."
+    - echo "Deploying stacks..."
     - |
       shopt -s nullglob
       files=(output/*.yaml)
