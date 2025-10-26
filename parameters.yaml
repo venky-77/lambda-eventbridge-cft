@@ -2,16 +2,16 @@
   table_name: alert_comment
   schedule_expression: "rate(5 minutes)"
   s3_prefix: "lambda/cases_base_alert_comment.csv"
-  sql_query: "select * from cases_base.alert_comment limit 10;"
+  sql_query: "select * from cases_base.alert_comment limit 77;"
   
-- schema_name: cases_base
-  table_name: alert_status
-  schedule_expression: "rate(10 minutes)"
-  s3_prefix: "lambda/cases_base_alert_status.csv"
-  sql_query: "select * from cases_base.alert_status limit 10;"
+# - schema_name: cases_base
+#   table_name: alert_status
+#   schedule_expression: "rate(10 minutes)"
+#   s3_prefix: "lambda/cases_base_alert_status.csv"
+#   sql_query: "select * from cases_base.alert_status limit 10;"
 
-- schema_name: cases_base
-  table_name: alert_fleet
-  schedule_expression: "rate(15 minutes)"
-  s3_prefix: "lambda/cases_base_alert_fleet.csv"
-  sql_query: "select * from cases_base.alert_fleet limit 10;"
+# - schema_name: cases_base
+#   table_name: alert_fleet
+#   schedule_expression: "rate(15 minutes)"
+#   s3_prefix: "lambda/cases_base_alert_fleet.csv"
+#   sql_query: "select * from cases_base.alert_fleet limit 10;"
