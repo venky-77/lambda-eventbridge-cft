@@ -15,8 +15,9 @@ phases:
       - ls -l output/
       - echo "Deploying single stack..."
       - |
-        files=(output/*.yaml)
-        stack-name "lambda-eb-${stack_name}"
+        file="output/lambda-eb-cases_base-alert_comment.yaml"
+        stack_name="lambda-eb-cases-base-alert-comment"
+
         if [ ! -f "$file" ]; then
           echo "Template file not found: $file"
           exit 1
