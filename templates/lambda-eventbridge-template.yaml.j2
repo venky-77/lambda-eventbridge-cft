@@ -83,15 +83,15 @@ Resources:
 
               print(f"Data written to s3://{s3_bucket}/{s3_prefix}")
               return {"status": "success", "s3_file": f"s3://{s3_bucket}/{s3_prefix}"}
-
+ 
       Environment:
         Variables:
           REDSHIFT_CLUSTER_ID: "your-cluster-id"
           REDSHIFT_DB: "your-db-name"
           REDSHIFT_USER: "your-db-user"
           S3_BUCKET: "your-s3-bucket-name"
-          S3_PREFIX: "{{ s3_prefix }}"
-          SQL_QUERY: "{{ sql_query }}"
+          S3_PREFIX: "lambda/{{ schema_name }}_{{ table_name }}.csv"
+          SQL_QUERY: "select * from {{ schema_name }}.{{ table_name }} limit 10;"
 
   EventBridgeRule{{ schema_name | replace("_", "") }}{{ table_name | replace("_", "") }}:
     Type: AWS::Events::Rule
